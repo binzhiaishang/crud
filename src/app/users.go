@@ -54,3 +54,13 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 	common.ReturnFormat(w, 0, nil, "SUCCESS")
 }
+
+func ListUsers(w http.ResponseWriter, r *http.Request) {
+	condition := bson.M{}
+	users, err := model.FindUsers(condition)
+	if err != nil {
+		common.ReturnEFormat(w, 1, err.Error())
+		return
+	}
+	common.ReturnFormat(w, 0, map[string]interface{}{"users": users}, "SUCCESS")
+}
